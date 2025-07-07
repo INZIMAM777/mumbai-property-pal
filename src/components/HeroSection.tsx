@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -17,8 +18,15 @@ import {
 } from "@/components/ui/select";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Buy");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}&location=Western Mumbai`);
+    }
+  };
 
   const tabs = [
     { name: "Buy" },
@@ -148,7 +156,12 @@ const HeroSection = () => {
 
             {/* Search Button */}
             <div className="md:col-span-3">
-              <Button variant="search" size="lg" className="w-full h-12 bg-secondary text-secondary-foreground hover:bg-secondary/90">
+              <Button 
+                variant="search" 
+                size="lg" 
+                className="w-full h-12 bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                onClick={handleSearch}
+              >
                 Search
               </Button>
             </div>

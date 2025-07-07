@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, User, Menu, Search, Globe } from "lucide-react";
 import {
@@ -17,7 +18,7 @@ const Header = () => {
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-primary">99acres</span>
+            <Link to="/" className="text-2xl font-bold text-primary">99acres</Link>
             <div className="ml-4 hidden md:flex items-center gap-1 text-sm">
               <span className="text-primary font-medium">Buy in Western Mumbai</span>
               <ChevronDown className="h-4 w-4 text-primary" />
@@ -50,12 +51,14 @@ const Header = () => {
 
           {/* Right Section */}
           <div className="flex items-center space-x-3">
-            <Button variant="hero" size="sm" className="hidden sm:inline-flex text-sm px-4">
-              Post property
-              <span className="bg-success text-success-foreground text-xs px-1.5 py-0.5 rounded ml-2 font-medium">
-                FREE
-              </span>
-            </Button>
+            <Link to="/post-property">
+              <Button variant="hero" size="sm" className="hidden sm:inline-flex text-sm px-4">
+                Post property
+                <span className="bg-success text-success-foreground text-xs px-1.5 py-0.5 rounded ml-2 font-medium">
+                  FREE
+                </span>
+              </Button>
+            </Link>
             
             {/* Language/Region */}
             <div className="hidden md:flex items-center gap-1 text-sm text-muted-foreground cursor-pointer hover:text-foreground">
@@ -111,9 +114,11 @@ const Header = () => {
                 Insights
               </a>
               <div className="pt-3 border-t">
-                <Button variant="hero" size="sm" className="w-full">
-                  Post property FREE
-                </Button>
+                <Link to="/post-property" className="block">
+                  <Button variant="hero" size="sm" className="w-full">
+                    Post property FREE
+                  </Button>
+                </Link>
               </div>
             </nav>
           </div>
