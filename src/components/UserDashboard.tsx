@@ -81,6 +81,10 @@ const UserDashboard = () => {
               <div>Bangalore</div>
               <div>Gurgaon</div>
               <div>Hyderabad</div>
+              <div>Thane</div>
+              <div>Faridabad</div>
+              <div>Ghaziabad</div>
+              <div>Navi Mumbai</div>
             </div>
           </div>
           
@@ -96,6 +100,12 @@ const UserDashboard = () => {
               <div>Ahmedabad</div>
               <div>Chandigarh</div>
               <div>Lucknow</div>
+              <div>Jaipur</div>
+              <div>Indore</div>
+              <div>Surat</div>
+              <div>Kanpur</div>
+              <div>Nagpur</div>
+              <div>Bhopal</div>
             </div>
           </div>
         </CardContent>
