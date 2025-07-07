@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { 
   Search, 
   MapPin, 
-  Home, 
-  Building2, 
-  Warehouse,
-  Users,
   Mic,
-  SlidersHorizontal
+  ChevronDown,
+  LocateFixed
 } from "lucide-react";
 import {
   Select,
@@ -19,161 +15,154 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import heroImage from "@/assets/hero-building.jpg";
 
 const HeroSection = () => {
   const [activeTab, setActiveTab] = useState("Buy");
   const [searchQuery, setSearchQuery] = useState("");
 
   const tabs = [
-    { name: "Buy", icon: Home },
-    { name: "Rent", icon: Building2 },
-    { name: "New Launch", icon: Warehouse, badge: "NEW" },
-    { name: "PG / Co-living", icon: Users },
-    { name: "Commercial", icon: Building2 },
-    { name: "Plots/Land", icon: MapPin },
-    { name: "Projects", icon: Warehouse },
+    { name: "Buy" },
+    { name: "Rent" },
+    { name: "New Launch", isNew: true },
+    { name: "PG / Co-living" },
+    { name: "Commercial" },
+    { name: "Plots/Land" },
+    { name: "Projects" },
   ];
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-hero overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={heroImage} 
-          alt="Luxury Real Estate" 
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-hero opacity-90" />
+    <section className="bg-gradient-hero min-h-[500px] relative">
+      {/* Banner Ad */}
+      <div className="relative h-32 md:h-40 bg-gradient-to-r from-orange-50 to-orange-100 border-b">
+        <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+          <div className="flex-1">
+            <div className="text-lg md:text-xl font-semibold text-orange-900 mb-1">
+              A NEW STANDARD
+            </div>
+            <div className="text-lg md:text-xl font-semibold text-orange-900 mb-2">
+              OF LIVING
+            </div>
+            <div className="text-sm text-orange-700">
+              #Don'tMissDLFMumbai
+            </div>
+          </div>
+          <div className="hidden md:block">
+            <img 
+              src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=200&h=120&fit=crop" 
+              alt="DLF Project" 
+              className="rounded-lg"
+            />
+          </div>
+          <div className="text-right">
+            <div className="text-lg font-bold text-primary mb-1">DLF TRIDENT</div>
+            <div className="text-sm text-muted-foreground mb-1">3 & 4 BEDROOM RESIDENCES COMING SOON</div>
+            <div className="text-sm text-muted-foreground">OFF LINK ROAD - ANDHERI WEST, MUMBAI</div>
+            <div className="mt-2">
+              <img 
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" 
+                alt="QR Code" 
+                className="w-12 h-12 bg-muted rounded"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Hero Content */}
-          <div className="mb-12">
-            <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6">
-              Find Your Perfect
-              <span className="block text-primary-glow">Dream Home</span>
-            </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Discover premium properties across Mumbai with verified listings, 
-              expert guidance, and seamless buying experience.
-            </p>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Continue browsing section */}
+        <div className="mb-6">
+          <p className="text-sm text-muted-foreground mb-3">Continue browsing where you left off...</p>
+          <div className="flex items-center gap-2 text-sm">
+            <div className="flex items-center gap-1">
+              <MapPin className="h-4 w-4 text-primary" />
+              <span className="text-primary font-medium">Buy in Western Mumbai</span>
+            </div>
+            <span className="text-muted-foreground">•</span>
+            <span className="text-muted-foreground">Explore real estate in...</span>
+          </div>
+        </div>
+
+        {/* Search Card */}
+        <div className="bg-card rounded-lg shadow-lg p-6 max-w-4xl">
+          {/* Tabs */}
+          <div className="flex flex-wrap gap-2 mb-6 border-b">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.name;
+              return (
+                <button
+                  key={tab.name}
+                  onClick={() => setActiveTab(tab.name)}
+                  className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors relative ${
+                    isActive
+                      ? "text-primary border-b-2 border-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {tab.name}
+                  {tab.isNew && (
+                    <sup className="text-xs text-red-500 font-bold">★</sup>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Search Card */}
-          <div className="bg-card/95 backdrop-blur-sm rounded-2xl shadow-hover p-6 md:p-8 border border-white/20">
-            {/* Tabs */}
-            <div className="flex flex-wrap justify-center gap-2 mb-6">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.name;
-                return (
-                  <button
-                    key={tab.name}
-                    onClick={() => setActiveTab(tab.name)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative ${
-                      isActive
-                        ? "bg-primary text-primary-foreground shadow-md"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {tab.name}
-                    {tab.badge && (
-                      <Badge variant="secondary" className="ml-1 text-xs px-1 py-0">
-                        {tab.badge}
-                      </Badge>
-                    )}
-                  </button>
-                );
-              })}
+          {/* Search Form */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+            {/* Property Type */}
+            <div className="md:col-span-3">
+              <Select defaultValue="all-residential">
+                <SelectTrigger className="h-12">
+                  <SelectValue placeholder="All Residential" />
+                  <ChevronDown className="h-4 w-4" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all-residential">All Residential</SelectItem>
+                  <SelectItem value="apartment">Apartment</SelectItem>
+                  <SelectItem value="villa">Villa</SelectItem>
+                  <SelectItem value="plot">Plot</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            {/* Search Form */}
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-                {/* Property Type */}
-                <div className="md:col-span-3">
-                  <label className="text-sm font-medium text-card-foreground mb-2 block">
-                    Property Type
-                  </label>
-                  <Select defaultValue="all-residential">
-                    <SelectTrigger className="h-12">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all-residential">All Residential</SelectItem>
-                      <SelectItem value="apartment">Apartment</SelectItem>
-                      <SelectItem value="villa">Villa</SelectItem>
-                      <SelectItem value="plot">Plot</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Location Search */}
-                <div className="md:col-span-6">
-                  <label className="text-sm font-medium text-card-foreground mb-2 block">
-                    Location
-                  </label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search for locality, project, or landmark"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10 h-12 text-base"
-                    />
-                    <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                      <Mic className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Search Button */}
-                <div className="md:col-span-3 flex gap-2">
-                  <Button variant="search" size="lg" className="flex-1 h-12">
-                    <Search className="h-4 w-4 mr-2" />
-                    Search
+            {/* Location Search */}
+            <div className="md:col-span-6">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search '3 BHK for sale in Mumbai'"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-20 h-12 text-base"
+                />
+                <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-1">
+                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <LocateFixed className="h-4 w-4 text-primary" />
                   </Button>
-                  <Button variant="filter" size="icon" className="h-12 w-12">
-                    <SlidersHorizontal className="h-4 w-4" />
+                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <Mic className="h-4 w-4 text-primary" />
                   </Button>
                 </div>
               </div>
+            </div>
 
-              {/* Quick Filters */}
-              <div className="flex flex-wrap gap-2 pt-4 border-t">
-                <span className="text-sm text-muted-foreground mr-2">Popular:</span>
-                {["Ready to Move", "Under Construction", "Resale", "New Launch"].map((filter) => (
-                  <Button 
-                    key={filter} 
-                    variant="outline" 
-                    size="sm" 
-                    className="text-xs h-7"
-                  >
-                    {filter}
-                  </Button>
-                ))}
-              </div>
+            {/* Search Button */}
+            <div className="md:col-span-3">
+              <Button variant="search" size="lg" className="w-full h-12 bg-secondary text-secondary-foreground hover:bg-secondary/90">
+                Search
+              </Button>
             </div>
           </div>
+        </div>
 
-          {/* Trust Indicators */}
-          <div className="mt-8 flex flex-wrap justify-center gap-8 text-primary-foreground/70">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary-foreground">50K+</div>
-              <div className="text-sm">Properties Listed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary-foreground">15K+</div>
-              <div className="text-sm">Happy Customers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary-foreground">25+</div>
-              <div className="text-sm">Cities Covered</div>
-            </div>
+        {/* Free Text Search Info */}
+        <div className="mt-4 bg-slate-800 text-white p-3 rounded-md max-w-4xl">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">💡 Introducing Free Text Search</span>
           </div>
+          <p className="text-sm text-slate-300 mt-1">
+            Now search for Cities, Locality, Landmark or Text Phrases
+          </p>
         </div>
       </div>
     </section>

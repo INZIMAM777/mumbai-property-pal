@@ -1,180 +1,137 @@
 import PropertyCard from "./PropertyCard";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, TrendingUp } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-// Mock data for featured properties
-const featuredProperties = [
+// Mock data matching 99acres style
+const recommendedProjects = [
   {
     id: "1",
-    title: "Luxurious 3 BHK Apartment in Bandra West",
-    location: "Bandra West, Mumbai",
-    price: "₹2.8 Cr",
-    originalPrice: "₹3.2 Cr",
+    title: "Dhariwal Magathane Press Enclave CHSL",
+    location: "1, 2, 3 BHK Apartment in Magathane, Borivali East",
+    price: "₹1.1 - 2.86 Cr",
     image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop",
     beds: 3,
-    baths: 3,
-    sqft: 1250,
-    type: "Apartment",
-    status: "Ready to Move" as const,
-    rating: 4.5,
-    reviews: 128,
-    developer: "Godrej Properties",
-    verified: true,
-    featured: true,
-  },
-  {
-    id: "2",
-    title: "Modern 2 BHK with Sea View in Worli",
-    location: "Worli, Mumbai",
-    price: "₹4.2 Cr",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop",
-    beds: 2,
-    baths: 2,
-    sqft: 950,
-    type: "Apartment",
-    status: "New Launch" as const,
-    rating: 4.8,
-    reviews: 89,
-    developer: "Lodha Group",
-    possession: "Dec 2025",
-    verified: true,
-  },
-  {
-    id: "3",
-    title: "Spacious 4 BHK Penthouse in Juhu",
-    location: "Juhu, Mumbai",
-    price: "₹6.5 Cr",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop",
-    beds: 4,
-    baths: 4,
-    sqft: 2100,
-    type: "Penthouse",
-    status: "Under Construction" as const,
-    rating: 4.6,
-    reviews: 67,
-    developer: "Oberoi Realty",
-    possession: "Mar 2026",
-    featured: true,
-  },
-  {
-    id: "4",
-    title: "Contemporary 1 BHK Studio in Andheri",
-    location: "Andheri East, Mumbai",
-    price: "₹95 L",
-    originalPrice: "₹1.1 Cr",
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
-    beds: 1,
-    baths: 1,
-    sqft: 580,
-    type: "Studio",
-    status: "Ready to Move" as const,
-    rating: 4.2,
-    reviews: 45,
-    developer: "K Raheja Corp",
-    verified: true,
-  },
-  {
-    id: "5",
-    title: "Premium 3 BHK Villa in Powai",
-    location: "Powai, Mumbai",
-    price: "₹3.8 Cr",
-    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
-    beds: 3,
-    baths: 3,
-    sqft: 1800,
-    type: "Villa",
-    status: "New Launch" as const,
-    rating: 4.7,
-    reviews: 156,
-    developer: "Hiranandani Group",
-    possession: "Jun 2025",
-    featured: true,
-  },
-  {
-    id: "6",
-    title: "Elegant 2 BHK Flat in Malad West",
-    location: "Malad West, Mumbai",
-    price: "₹1.4 Cr",
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
-    beds: 2,
     baths: 2,
     sqft: 850,
     type: "Apartment",
     status: "Ready to Move" as const,
-    rating: 4.3,
-    reviews: 92,
-    developer: "Runwal Group",
+    possession: "Possession from Mar 2027",
+    isRERA: true,
     verified: true,
+  },
+  {
+    id: "2",
+    title: "Apex Green Wood",
+    location: "BHK Apartment in Magathane, Borivali East",
+    price: "₹91.73 - 92.95 L",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop",
+    beds: 2,
+    baths: 2,
+    sqft: 650,
+    type: "Apartment",
+    status: "Under Construction" as const,
+    possession: "Possession from Jun 2026",
+    isRERA: true,
+  },
+  {
+    id: "3",
+    title: "Lodha Woods",
+    location: "2, 3, 4 BHK Apartment in Kandivali East, Mumbai",
+    price: "₹2.04 - 4.38 Cr",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop",
+    beds: 3,
+    baths: 3,
+    sqft: 1200,
+    type: "Apartment",
+    status: "Under Construction" as const,
+    possession: "Possession from Dec 2025",
+    isRERA: true,
+  },
+];
+
+const apartmentTypes = [
+  {
+    title: "Flats in Western Mumbai",
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=300&h=200&fit=crop",
+  },
+  {
+    title: "Builder Floors in Western Mumbai",
+    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=300&h=200&fit=crop",
+  },
+  {
+    title: "Independent House in Western Mumbai",
+    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=300&h=200&fit=crop",
+  },
+  {
+    title: "Plots in Western Mumbai",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=300&h=200&fit=crop",
   },
 ];
 
 const FeaturedProjects = () => {
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium text-primary">TRENDING NOW</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-              Featured Projects
-            </h2>
-            <p className="text-muted-foreground max-w-2xl">
-              Discover the most sought-after properties in Mumbai with verified listings 
-              and exclusive deals from top developers.
-            </p>
-          </div>
-          <Button variant="outline" className="hidden md:flex">
-            <span>View All</span>
-            <ArrowRight className="h-4 w-4 ml-2" />
-          </Button>
+    <div className="space-y-12">
+      {/* Recommended Projects */}
+      <section>
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            Recommended Projects
+          </h2>
+          <p className="text-muted-foreground">
+            The most searched projects in Western Mumbai
+          </p>
         </div>
 
-        {/* Properties Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {featuredProperties.map((property) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {recommendedProjects.map((property, index) => (
             <PropertyCard 
               key={property.id} 
               property={property}
-              className="hover:scale-[1.02] transition-transform duration-300"
+              className="hover:shadow-lg transition-shadow duration-300"
             />
           ))}
         </div>
 
-        {/* Mobile View All Button */}
-        <div className="flex justify-center md:hidden">
-          <Button variant="outline" size="lg">
-            <span>View All Properties</span>
-            <ArrowRight className="h-4 w-4 ml-2" />
-          </Button>
+        <div className="text-center">
+          <button className="flex items-center gap-2 mx-auto text-primary hover:text-primary/80 font-medium">
+            <span>View More Projects</span>
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </section>
+
+      {/* Apartments, Villas and more */}
+      <section>
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            Apartments, Villas and more
+          </h2>
+          <p className="text-muted-foreground">
+            in Western Mumbai
+          </p>
         </div>
 
-        {/* Stats Section */}
-        <div className="mt-16 p-8 bg-gradient-hero rounded-2xl text-primary-foreground">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div>
-              <div className="text-3xl font-bold mb-1">50K+</div>
-              <div className="text-primary-foreground/80 text-sm">Properties</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {apartmentTypes.map((type, index) => (
+            <div 
+              key={index}
+              className="relative group cursor-pointer rounded-lg overflow-hidden"
+            >
+              <img 
+                src={type.image} 
+                alt={type.title}
+                className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-300" />
+              <div className="absolute bottom-3 left-3 right-3">
+                <h3 className="text-white text-sm font-medium leading-tight">
+                  {type.title}
+                </h3>
+              </div>
             </div>
-            <div>
-              <div className="text-3xl font-bold mb-1">1500+</div>
-              <div className="text-primary-foreground/80 text-sm">Projects</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-1">25+</div>
-              <div className="text-primary-foreground/80 text-sm">Cities</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-1">15K+</div>
-              <div className="text-primary-foreground/80 text-sm">Happy Customers</div>
-            </div>
-          </div>
+          ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

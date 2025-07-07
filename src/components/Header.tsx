@@ -1,16 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { 
-  Home, 
-  Building, 
-  MapPin, 
-  User, 
-  Menu, 
-  Search,
-  Bell,
-  Heart
-} from "lucide-react";
+import { ChevronDown, User, Menu, Search, Globe } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,119 +12,107 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 w-full bg-card border-b">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex h-14 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-hero">
-              <Home className="h-5 w-5 text-primary-foreground" />
+          <div className="flex items-center">
+            <span className="text-2xl font-bold text-primary">99acres</span>
+            <div className="ml-4 hidden md:flex items-center gap-1 text-sm">
+              <span className="text-primary font-medium">Buy in Western Mumbai</span>
+              <ChevronDown className="h-4 w-4 text-primary" />
             </div>
-            <span className="text-xl font-bold text-primary">EstateHub</span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Buy
+          <nav className="hidden lg:flex items-center space-x-8 text-sm">
+            <a href="#" className="text-foreground hover:text-primary transition-colors">
+              For Buyers
             </a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Rent
+            <a href="#" className="text-foreground hover:text-primary transition-colors">
+              For Tenants
             </a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              New Launch
+            <a href="#" className="text-foreground hover:text-primary transition-colors">
+              For Owners
             </a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              PG / Co-living
+            <a href="#" className="text-foreground hover:text-primary transition-colors">
+              For Dealers / Builders
             </a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Commercial
-            </a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Projects
-            </a>
+            <div className="flex items-center gap-1">
+              <span className="text-foreground hover:text-primary transition-colors cursor-pointer">
+                Insights
+              </span>
+              <span className="bg-secondary text-secondary-foreground text-xs px-1.5 py-0.5 rounded font-medium">
+                NEW
+              </span>
+            </div>
           </nav>
 
           {/* Right Section */}
           <div className="flex items-center space-x-3">
-            {/* For Buyers/Owners Links */}
-            <div className="hidden lg:flex items-center space-x-4 text-sm">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                For Buyers
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                For Tenants
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                For Owners
-              </a>
+            <Button variant="hero" size="sm" className="hidden sm:inline-flex text-sm px-4">
+              Post property
+              <span className="bg-success text-success-foreground text-xs px-1.5 py-0.5 rounded ml-2 font-medium">
+                FREE
+              </span>
+            </Button>
+            
+            {/* Language/Region */}
+            <div className="hidden md:flex items-center gap-1 text-sm text-muted-foreground cursor-pointer hover:text-foreground">
+              <Globe className="h-4 w-4" />
+              <span>EN</span>
+              <ChevronDown className="h-3 w-3" />
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="icon" className="hidden sm:inline-flex">
-                <Heart className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hidden sm:inline-flex">
-                <Bell className="h-4 w-4" />
-              </Button>
-              <Button variant="hero" size="sm" className="hidden sm:inline-flex">
-                Post Property
-              </Button>
-              
-              {/* User Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <User className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem>Login / Register</DropdownMenuItem>
-                  <DropdownMenuItem>My Properties</DropdownMenuItem>
-                  <DropdownMenuItem>Saved Properties</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            {/* User Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <User className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem>Login / Register</DropdownMenuItem>
+                <DropdownMenuItem>My Activity</DropdownMenuItem>
+                <DropdownMenuItem>Saved Properties</DropdownMenuItem>
+                <DropdownMenuItem>My Requirements</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-              {/* Mobile Menu Button */}
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="md:hidden"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <Menu className="h-4 w-4" />
-              </Button>
-            </div>
+            {/* Mobile Menu Button */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="lg:hidden h-8 w-8"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+          <div className="lg:hidden py-4 border-t">
             <nav className="flex flex-col space-y-3">
               <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1">
-                Buy
+                For Buyers
               </a>
               <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1">
-                Rent
+                For Tenants
               </a>
               <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1">
-                New Launch
+                For Owners
               </a>
               <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1">
-                PG / Co-living
+                For Dealers / Builders
               </a>
               <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1">
-                Commercial
-              </a>
-              <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1">
-                Projects
+                Insights
               </a>
               <div className="pt-3 border-t">
                 <Button variant="hero" size="sm" className="w-full">
-                  Post Property
+                  Post property FREE
                 </Button>
               </div>
             </nav>
