@@ -48,15 +48,15 @@ const UserDashboard = () => {
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold mb-1">InvestAcres</h3>
               <p className="text-sm text-slate-300 mb-1">
-                Your investment journey begins here
+                Want to invest in real estate but confused? Let our experts guide you
               </p>
-              <div className="text-xs text-slate-400 mb-3">
-                <div>✓ 2X RETURNS WITH COMMERCIAL</div>
-                <div>✓ EXPERT OPTIONS</div>
-              </div>
+              <p className="text-xs text-slate-400 mb-3">
+                *Conditions Apply
+              </p>
               <Button 
+                variant="outline" 
                 size="sm" 
-                className="bg-white text-black hover:bg-gray-200 text-xs px-3 py-1 h-auto"
+                className="bg-transparent border-white text-white hover:bg-white hover:text-black text-xs"
               >
                 Visit Now
               </Button>
@@ -65,7 +65,7 @@ const UserDashboard = () => {
         </CardContent>
       </Card>
 
-      {/* Top Cities */}
+      {/* Top Cities Section */}
       <Card>
         <CardContent className="p-4">
           <h3 className="font-medium mb-3">View top cities</h3>
@@ -103,23 +103,76 @@ const UserDashboard = () => {
         </CardContent>
       </Card>
 
-      {/* For Buyers */}
+      {/* For Buyers Section */}
       <Card>
         <CardContent className="p-4">
           <h3 className="font-medium mb-3 flex items-center gap-2">
             <Building className="h-4 w-4" />
-            For Buyers
+            BUY A HOME
           </h3>
-          <div className="space-y-2 text-sm">
-            <div className="text-muted-foreground">BUY A HOME</div>
-            <div className="space-y-1 text-xs text-muted-foreground">
-              <div>PROPERTIES IN WESTERN MUMBAI</div>
-              <div>Flats</div>
-              <div>Builder Floors</div>
-              <div>Independent House</div>
-              <div>Plots in Western Mumbai</div>
-              <div>Studio Apartments/1 RK Flats</div>
+          <div className="space-y-3">
+            <div className="text-sm font-medium text-foreground mb-2">PROPERTIES IN CHENNAI SOUTH</div>
+            {[
+              "Flats in Chennai South (1,234 properties)",
+              "Builder Floors in Chennai South (456 properties)",
+              "Independent House in Chennai South (789 properties)",
+              "Plots in Chennai South (345 properties)",
+              "Serviced Apartments in Chennai South (123 properties)",
+              "Studio Apartments/1 RK Flats (234 properties)",
+              "Farm Houses in Chennai South (67 properties)"
+            ].map((item, index) => (
+              <div key={index} className="text-xs text-muted-foreground hover:text-primary cursor-pointer pl-2">
+                {item}
+              </div>
+            ))}
+            
+            <div className="mt-4 pt-3 border-t">
+              <div className="text-sm font-medium text-foreground mb-2">POPULAR SEARCHES</div>
+              {[
+                "Property in Chennai South (2,547 properties)",
+                "Verified Property in Chennai South (1,892 properties)",
+                "New Projects in Chennai South (567 properties)"
+              ].map((item, index) => (
+                <div key={index} className="text-xs text-muted-foreground hover:text-primary cursor-pointer pl-2 mb-1">
+                  {item}
+                </div>
+              ))}
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Insights Section */}
+      <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp className="h-5 w-5 text-blue-600" />
+            <h3 className="font-medium text-blue-900 dark:text-blue-100">INTRODUCING Insights</h3>
+            <span className="bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">NEW</span>
+          </div>
+          <div className="space-y-2">
+            {[
+              "Understand localities",
+              "Read Resident Reviews", 
+              "Check Price Trends",
+              "Tools, Utilities & more"
+            ].map((feature, index) => (
+              <div key={index} className="text-sm text-blue-700 dark:text-blue-200 hover:text-blue-900 cursor-pointer">
+                • {feature}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Contact Section */}
+      <Card className="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20">
+        <CardContent className="p-4">
+          <h3 className="font-medium mb-2 text-green-900 dark:text-green-100">Contact Us</h3>
+          <div className="space-y-1 text-sm text-green-700 dark:text-green-200">
+            <div>Email: services@99acres.com</div>
+            <div>Call: 1800 41 99099 (IND Toll-Free)</div>
+            <div className="text-xs">(9AM-11PM IST)</div>
           </div>
         </CardContent>
       </Card>

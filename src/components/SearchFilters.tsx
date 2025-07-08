@@ -116,12 +116,16 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="Apartment">Apartment</SelectItem>
+              <SelectItem value="Apartment">Apartment/Flat</SelectItem>
               <SelectItem value="Villa">Villa</SelectItem>
-              <SelectItem value="Builder Floor">Builder Floor</SelectItem>
+              <SelectItem value="Builder Floor">Builder Floors</SelectItem>
               <SelectItem value="Independent House">Independent House</SelectItem>
-              <SelectItem value="Plot">Plot</SelectItem>
-              <SelectItem value="Commercial">Commercial</SelectItem>
+              <SelectItem value="Plot">Plots/Land</SelectItem>
+              <SelectItem value="Studio Apartment">Studio Apartments/1 RK</SelectItem>
+              <SelectItem value="Serviced Apartment">Serviced Apartments</SelectItem>
+              <SelectItem value="Farm House">Farm Houses</SelectItem>
+              <SelectItem value="Commercial">Commercial Property</SelectItem>
+              <SelectItem value="Office Space">Office Space</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -151,7 +155,12 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
               <SelectItem value="2">2 BHK</SelectItem>
               <SelectItem value="3">3 BHK</SelectItem>
               <SelectItem value="4">4 BHK</SelectItem>
-              <SelectItem value="5">5+ BHK</SelectItem>
+              <SelectItem value="5">5 BHK</SelectItem>
+              <SelectItem value="6">6 BHK</SelectItem>
+              <SelectItem value="7">7 BHK</SelectItem>
+              <SelectItem value="8">8 BHK</SelectItem>
+              <SelectItem value="9">9 BHK</SelectItem>
+              <SelectItem value="10">10+ BHK</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -160,17 +169,33 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
 
         {/* Bathrooms */}
         <div>
-          <h3 className="font-medium mb-3">Bathrooms</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Bathrooms</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Number of bathrooms/washrooms in the property</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <Select value={filters.bathrooms} onValueChange={(value) => handleFilterUpdate('bathrooms', value)}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Any</SelectItem>
-              <SelectItem value="1">1</SelectItem>
-              <SelectItem value="2">2</SelectItem>
-              <SelectItem value="3">3</SelectItem>
-              <SelectItem value="4">4+</SelectItem>
+              <SelectItem value="1">1 Bathroom</SelectItem>
+              <SelectItem value="2">2 Bathrooms</SelectItem>
+              <SelectItem value="3">3 Bathrooms</SelectItem>
+              <SelectItem value="4">4 Bathrooms</SelectItem>
+              <SelectItem value="5">5 Bathrooms</SelectItem>
+              <SelectItem value="6">6 Bathrooms</SelectItem>
+              <SelectItem value="7">7 Bathrooms</SelectItem>
+              <SelectItem value="8">8 Bathrooms</SelectItem>
+              <SelectItem value="9">9 Bathrooms</SelectItem>
+              <SelectItem value="10">10+ Bathrooms</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -179,7 +204,17 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
 
         {/* Property Status */}
         <div>
-          <h3 className="font-medium mb-3">Status</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Status</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Construction status and possession timeline</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <Select value={filters.status} onValueChange={(value) => handleFilterUpdate('status', value)}>
             <SelectTrigger>
               <SelectValue />
@@ -189,6 +224,13 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
               <SelectItem value="Ready to Move">Ready to Move</SelectItem>
               <SelectItem value="Under Construction">Under Construction</SelectItem>
               <SelectItem value="New Launch">New Launch</SelectItem>
+              <SelectItem value="Resale">Resale</SelectItem>
+              <SelectItem value="Pre Launch">Pre Launch</SelectItem>
+              <SelectItem value="Possession Soon">Possession Soon</SelectItem>
+              <SelectItem value="Rent">For Rent</SelectItem>
+              <SelectItem value="PG">PG/Co-living</SelectItem>
+              <SelectItem value="Lease">For Lease</SelectItem>
+              <SelectItem value="Investment">Investment</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -277,13 +319,19 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
           <div className="space-y-2">
             {[
               'Swimming Pool',
-              'Gym',
-              'Parking',
-              'Security',
+              'Gym/Fitness Center',
+              'Parking Space',
+              '24x7 Security',
               'Club House',
-              'Garden',
-              'Elevator',
-              'Power Backup'
+              'Garden/Landscaping',
+              'Elevator/Lift',
+              'Power Backup',
+              'Water Supply',
+              'Internet/Wi-Fi',
+              'CCTV Surveillance',
+              'Children\'s Play Area',
+              'Jogging Track',
+              'Multi-purpose Hall'
             ].map((amenity) => (
               <div key={amenity} className="flex items-center space-x-2">
                 <Checkbox
