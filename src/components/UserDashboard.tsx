@@ -69,44 +69,36 @@ const UserDashboard = () => {
       <Card>
         <CardContent className="p-4">
           <h3 className="font-medium mb-3">View top cities</h3>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between items-center">
-              <span className="font-medium">Top Cities</span>
-              <ArrowRight className="h-4 w-4 text-muted-foreground" />
-            </div>
-            <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-              <div>Delhi NCR</div>
-              <div>Mumbai</div>
-              <div>Noida</div>
-              <div>Bangalore</div>
-              <div>Gurgaon</div>
-              <div>Hyderabad</div>
-              <div>Thane</div>
-              <div>Faridabad</div>
-              <div>Ghaziabad</div>
-              <div>Navi Mumbai</div>
-            </div>
-          </div>
-          
-          <div className="mt-4 pt-3 border-t">
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-medium text-sm">Popular Cities</span>
-              <ArrowRight className="h-4 w-4 text-muted-foreground" />
-            </div>
-            <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-              <div>Chennai</div>
-              <div>Pune</div>
-              <div>Kolkata</div>
-              <div>Ahmedabad</div>
-              <div>Chandigarh</div>
-              <div>Lucknow</div>
-              <div>Jaipur</div>
-              <div>Indore</div>
-              <div>Surat</div>
-              <div>Kanpur</div>
-              <div>Nagpur</div>
-              <div>Bhopal</div>
-            </div>
+          <div className="space-y-2">
+            {[
+              "Mumbai (2,547 properties)",
+              "Delhi (1,892 properties)", 
+              "Bangalore (1,653 properties)",
+              "Hyderabad (1,234 properties)",
+              "Pune (1,156 properties)",
+              "Chennai (987 properties)",
+              "Kolkata (834 properties)",
+              "Ahmedabad (756 properties)",
+              "Gurgaon (1,445 properties)",
+              "Noida (1,287 properties)",
+              "Faridabad (654 properties)",
+              "Ghaziabad (578 properties)",
+              "Thane (892 properties)",
+              "Navi Mumbai (743 properties)",
+              "Indore (456 properties)",
+              "Bhopal (378 properties)",
+              "Jaipur (567 properties)",
+              "Lucknow (345 properties)",
+              "Kanpur (234 properties)",
+              "Nagpur (298 properties)"
+            ].map((city, index) => (
+              <div key={index} className="flex items-center justify-between py-1">
+                <span className="text-sm text-foreground hover:text-primary cursor-pointer">
+                  {city}
+                </span>
+                <ArrowRight className="h-3 w-3 text-muted-foreground" />
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

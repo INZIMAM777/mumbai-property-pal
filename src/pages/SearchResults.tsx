@@ -8,8 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, SlidersHorizontal } from "lucide-react";
 
-// Import the same property data from FeaturedProjects
-const allProperties = [
+import { allProperties } from "@/data/properties";
+
+// Use comprehensive property data
+const searchProperties = [
   {
     id: "1",
     title: "Dhariwal Magathane Press Enclave CHSL",

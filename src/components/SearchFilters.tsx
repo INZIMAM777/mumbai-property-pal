@@ -5,6 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 interface SearchFiltersProps {
   onFilterChange: (filters: any) => void;
@@ -53,20 +55,31 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">Filters</CardTitle>
-          <Button variant="ghost" size="sm" onClick={clearFilters}>
-            Clear All
-          </Button>
-        </div>
-      </CardHeader>
-      
-      <CardContent className="space-y-6">
+    <TooltipProvider>
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg">Filters</CardTitle>
+            <Button variant="ghost" size="sm" onClick={clearFilters}>
+              Clear All
+            </Button>
+          </div>
+        </CardHeader>
+        
+        <CardContent className="space-y-6">
         {/* Price Range */}
         <div>
-          <h3 className="font-medium mb-3">Price Range</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Price Range</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Set your budget range to filter properties</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <div className="space-y-3">
             <Slider
               value={filters.priceRange}
@@ -86,7 +99,17 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
 
         {/* Property Type */}
         <div>
-          <h3 className="font-medium mb-3">Property Type</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Property Type</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Choose the type of property you're looking for</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <Select value={filters.propertyType} onValueChange={(value) => handleFilterUpdate('propertyType', value)}>
             <SelectTrigger>
               <SelectValue />
@@ -107,7 +130,17 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
 
         {/* Bedrooms */}
         <div>
-          <h3 className="font-medium mb-3">Bedrooms</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Bedrooms</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Filter by number of bedrooms (BHK)</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <Select value={filters.bedrooms} onValueChange={(value) => handleFilterUpdate('bedrooms', value)}>
             <SelectTrigger>
               <SelectValue />
@@ -164,7 +197,17 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
 
         {/* Area Range */}
         <div>
-          <h3 className="font-medium mb-3">Area (sq ft)</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Area (sq ft)</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Set the carpet area range for your property</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <div className="space-y-3">
             <Slider
               value={filters.area}
@@ -184,7 +227,17 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
 
         {/* Special Features */}
         <div>
-          <h3 className="font-medium mb-3">Special Features</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Special Features</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Filter by RERA compliance and verification status</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -210,7 +263,17 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
 
         {/* Amenities */}
         <div>
-          <h3 className="font-medium mb-3">Amenities</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <h3 className="font-medium">Amenities</h3>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Select amenities you want in your property</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <div className="space-y-2">
             {[
               'Swimming Pool',
@@ -235,6 +298,7 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
         </div>
       </CardContent>
     </Card>
+    </TooltipProvider>
   );
 };
 
