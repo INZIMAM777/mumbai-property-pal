@@ -1,4 +1,6 @@
 // Comprehensive property data across major Indian cities
+import { additionalProperties } from './allCityProperties';
+
 export const allProperties = [
   // Mumbai Properties (20 properties)
   {
@@ -759,3 +761,6 @@ export const allProperties = [
   // Continue with more cities to reach 100+ properties...
   // For brevity, I'll continue with patterns for Pune, Chennai, Hyderabad, Kolkata, Ahmedabad
 ];
+
+// Combine all properties from both files
+export const combinedProperties = [...allProperties, ...additionalProperties];
