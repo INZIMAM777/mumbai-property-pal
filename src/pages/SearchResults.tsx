@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, SlidersHorizontal } from "lucide-react";
 
-import { allProperties } from "@/data/properties";
+import { combinedProperties } from "@/data/properties";
 
 // Use comprehensive property data
 const searchProperties = [
@@ -46,7 +46,7 @@ const searchProperties = [
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
-  const [filteredProperties, setFilteredProperties] = useState(allProperties);
+  const [filteredProperties, setFilteredProperties] = useState(combinedProperties);
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState("relevance");
   
@@ -56,10 +56,10 @@ const SearchResults = () => {
   useEffect(() => {
     // Get posted properties from localStorage
     const postedProperties = JSON.parse(localStorage.getItem('postedProperties') || '[]');
-    const combinedProperties = [...allProperties, ...postedProperties];
+    const allProps = [...combinedProperties, ...postedProperties];
     
     // Filter properties based on search criteria
-    let filtered = combinedProperties;
+    let filtered = allProps;
     
     if (searchQuery) {
       filtered = filtered.filter(property => 
@@ -79,7 +79,7 @@ const SearchResults = () => {
   }, [searchQuery, searchLocation]);
 
   const handleFilterChange = (filters: any) => {
-    let filtered = allProperties;
+    let filtered = combinedProperties;
     
     // Apply filters
     if (filters.priceRange) {

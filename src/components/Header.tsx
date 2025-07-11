@@ -1,13 +1,27 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, User, Menu, Search, Globe } from "lucide-react";
+import { ChevronDown, User, Menu, Search, Globe, Home, Users, Building, Store, TrendingUp } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,29 +39,140 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8 text-sm">
-            <a href="#" className="text-foreground hover:text-primary transition-colors">
-              For Buyers
-            </a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">
-              For Tenants
-            </a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">
-              For Owners
-            </a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">
-              For Dealers / Builders
-            </a>
-            <div className="flex items-center gap-1">
-              <span className="text-foreground hover:text-primary transition-colors cursor-pointer">
-                Insights
-              </span>
-              <span className="bg-secondary text-secondary-foreground text-xs px-1.5 py-0.5 rounded font-medium">
-                NEW
-              </span>
-            </div>
-          </nav>
+          {/* Desktop Navigation with Breadcrumb Tooltips */}
+          <TooltipProvider>
+            <nav className="hidden lg:flex items-center space-x-8 text-sm">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link to="/search?category=buy" className="text-foreground hover:text-primary transition-colors flex items-center gap-1">
+                    <Home className="h-4 w-4" />
+                    For Buyers
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="text-xs">
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Buy Properties</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                    <p className="mt-1">Find your dream home to buy</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link to="/search?category=rent" className="text-foreground hover:text-primary transition-colors flex items-center gap-1">
+                    <Users className="h-4 w-4" />
+                    For Tenants
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="text-xs">
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Rental Properties</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                    <p className="mt-1">Find rental properties</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link to="/post-property" className="text-foreground hover:text-primary transition-colors flex items-center gap-1">
+                    <Building className="h-4 w-4" />
+                    For Owners
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="text-xs">
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Post Property</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                    <p className="mt-1">List your property for sale/rent</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a href="#" className="text-foreground hover:text-primary transition-colors flex items-center gap-1">
+                    <Store className="h-4 w-4" />
+                    For Dealers / Builders
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="text-xs">
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Business Solutions</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                    <p className="mt-1">Professional tools for real estate business</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex items-center gap-1 cursor-pointer">
+                    <TrendingUp className="h-4 w-4" />
+                    <span className="text-foreground hover:text-primary transition-colors">
+                      Insights
+                    </span>
+                    <span className="bg-secondary text-secondary-foreground text-xs px-1.5 py-0.5 rounded font-medium">
+                      NEW
+                    </span>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="text-xs">
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Market Insights</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                    <p className="mt-1">Price trends, locality analysis & market reports</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </nav>
+          </TooltipProvider>
 
           {/* Right Section */}
           <div className="flex items-center space-x-3">

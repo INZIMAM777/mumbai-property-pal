@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PostProperty from "./pages/PostProperty";
 import SearchResults from "./pages/SearchResults";
+import MoreProjects from "./pages/MoreProjects";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/post-property" element={<PostProperty />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/more-projects" element={<MoreProjects />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

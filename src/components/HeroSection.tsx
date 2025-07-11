@@ -9,6 +9,7 @@ import {
   ChevronDown,
   LocateFixed
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
@@ -19,12 +20,92 @@ import {
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("Buy");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isListening, setIsListening] = useState(false);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}&location=Western Mumbai`);
+    }
+  };
+
+  const handleLocationSearch = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          toast({
+            title: "Location Found",
+            description: `Searching properties near your location (${latitude.toFixed(2)}, ${longitude.toFixed(2)})`,
+          });
+          navigate(`/search?lat=${latitude}&lng=${longitude}&location=Near Me`);
+        },
+        (error) => {
+          toast({
+            title: "Location Error",
+            description: "Unable to get your location. Please search manually.",
+            variant: "destructive",
+          });
+        }
+      );
+    } else {
+      toast({
+        title: "Location Not Supported",
+        description: "Geolocation is not supported by this browser.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleVoiceSearch = () => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        toast({
+          title: "Voice Search Active",
+          description: "Speak now to search for properties...",
+        });
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setSearchQuery(transcript);
+        setIsListening(false);
+        toast({
+          title: "Voice Search Complete",
+          description: `Searching for: ${transcript}`,
+        });
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+        toast({
+          title: "Voice Search Error",
+          description: "Could not hear your voice. Please try again.",
+          variant: "destructive",
+        });
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } else {
+      toast({
+        title: "Voice Search Not Supported",
+        description: "Voice search is not supported in this browser.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -144,11 +225,23 @@ const HeroSection = () => {
                   className="pl-10 pr-20 h-12 text-base"
                 />
                 <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-8 w-8"
+                    onClick={handleLocationSearch}
+                    title="Search by current location"
+                  >
                     <LocateFixed className="h-4 w-4 text-primary" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <Mic className="h-4 w-4 text-primary" />
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className={`h-8 w-8 ${isListening ? 'bg-red-100 text-red-600' : ''}`}
+                    onClick={handleVoiceSearch}
+                    title="Voice search"
+                  >
+                    <Mic className={`h-4 w-4 ${isListening ? 'text-red-600' : 'text-primary'}`} />
                   </Button>
                 </div>
               </div>
