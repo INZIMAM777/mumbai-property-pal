@@ -4,175 +4,212 @@ import {
   User, 
   TrendingUp,
   Building,
-  ArrowRight
+  ArrowRight,
+  Heart,
+  Search,
+  Bell,
+  Calculator,
+  MapPin,
+  Phone,
+  Mail,
+  Star,
+  Shield,
+  Award
 } from "lucide-react";
 
 const UserDashboard = () => {
   return (
-    <div className="space-y-4">
-      {/* Guest User Card */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-12 w-12 bg-muted rounded-full flex items-center justify-center">
-              <User className="h-6 w-6 text-muted-foreground" />
+    <div className="space-y-6">
+      {/* User Profile Card */}
+      <Card className="border-orange-200 bg-gradient-to-br from-orange-50 to-white">
+        <CardContent className="p-6">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center">
+              <User className="h-8 w-8 text-orange-600" />
             </div>
             <div>
-              <h3 className="font-medium">Guest User</h3>
-              <p className="text-sm text-muted-foreground">Your Recent Activity</p>
+              <h3 className="font-semibold text-gray-900">Welcome to 99acres</h3>
+              <p className="text-sm text-gray-600">Your property journey starts here</p>
             </div>
           </div>
           
-          <div className="space-y-3 mb-4">
-            <p className="text-sm text-muted-foreground">
-              No activity yet! Start browsing properties and projects and track them from here.
-            </p>
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center gap-3 text-sm">
+              <Heart className="h-4 w-4 text-orange-500" />
+              <span className="text-gray-600">Save your favorite properties</span>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Search className="h-4 w-4 text-orange-500" />
+              <span className="text-gray-600">Track your search history</span>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Bell className="h-4 w-4 text-orange-500" />
+              <span className="text-gray-600">Get instant property alerts</span>
+            </div>
           </div>
 
-          <Button variant="secondary" size="lg" className="w-full mb-2">
+          <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white mb-3">
             LOGIN / REGISTER
           </Button>
-          <p className="text-xs text-center text-muted-foreground">
-            to access all the features on 99acres
+          <p className="text-xs text-center text-gray-500">
+            Access all premium features on 99acres
           </p>
         </CardContent>
       </Card>
 
-      {/* Investment Card */}
+      {/* Quick Tools */}
+      <Card>
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-gray-900 mb-4">Quick Tools</h3>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors">
+              <div className="flex items-center gap-3">
+                <Calculator className="h-5 w-5 text-blue-600" />
+                <span className="text-sm font-medium">EMI Calculator</span>
+              </div>
+              <ArrowRight className="h-4 w-4 text-gray-400" />
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors">
+              <div className="flex items-center gap-3">
+                <TrendingUp className="h-5 w-5 text-green-600" />
+                <span className="text-sm font-medium">Price Trends</span>
+              </div>
+              <ArrowRight className="h-4 w-4 text-gray-400" />
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors">
+              <div className="flex items-center gap-3">
+                <MapPin className="h-5 w-5 text-purple-600" />
+                <span className="text-sm font-medium">Locality Guide</span>
+              </div>
+              <ArrowRight className="h-4 w-4 text-gray-400" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Investment Opportunity */}
       <Card className="bg-gradient-to-br from-slate-800 to-slate-900 text-white">
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
+        <CardContent className="p-6">
+          <div className="flex items-start gap-4">
             <div className="h-12 w-12 bg-yellow-500 rounded-lg flex items-center justify-center flex-shrink-0">
               <TrendingUp className="h-6 w-6 text-black" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold mb-1">InvestAcres</h3>
-              <p className="text-sm text-slate-300 mb-1">
-                Want to invest in real estate but confused? Let our experts guide you
-              </p>
-              <p className="text-xs text-slate-400 mb-3">
-                *Conditions Apply
+              <h3 className="font-semibold mb-2">InvestAcres</h3>
+              <p className="text-sm text-slate-300 mb-3">
+                Smart property investment guidance from experts. Get personalized recommendations.
               </p>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="bg-transparent border-white text-white hover:bg-white hover:text-black text-xs"
+                className="bg-transparent border-white text-white hover:bg-white hover:text-black"
               >
-                Visit Now
+                Explore Now
               </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Top Cities Section */}
+      {/* Top Cities */}
       <Card>
-        <CardContent className="p-4">
-          <h3 className="font-medium mb-3">View top cities</h3>
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-gray-900 mb-4">Popular Cities</h3>
           <div className="space-y-2">
             {[
-              "Mumbai (2,547 properties)",
-              "Delhi (1,892 properties)", 
-              "Bangalore (1,653 properties)",
-              "Hyderabad (1,234 properties)",
-              "Pune (1,156 properties)",
-              "Chennai (987 properties)",
-              "Kolkata (834 properties)",
-              "Ahmedabad (756 properties)",
-              "Gurgaon (1,445 properties)",
-              "Noida (1,287 properties)",
-              "Faridabad (654 properties)",
-              "Ghaziabad (578 properties)",
-              "Thane (892 properties)",
-              "Navi Mumbai (743 properties)",
-              "Indore (456 properties)",
-              "Bhopal (378 properties)",
-              "Jaipur (567 properties)",
-              "Lucknow (345 properties)",
-              "Kanpur (234 properties)",
-              "Nagpur (298 properties)"
-            ].map((city, index) => (
-              <div key={index} className="flex items-center justify-between py-1">
-                <span className="text-sm text-foreground hover:text-primary cursor-pointer">
-                  {city}
-                </span>
-                <ArrowRight className="h-3 w-3 text-muted-foreground" />
+              { city: "Mumbai", count: "2,547", growth: "+5.2%" },
+              { city: "Delhi", count: "1,892", growth: "+3.8%" },
+              { city: "Bangalore", count: "1,653", growth: "+7.1%" },
+              { city: "Hyderabad", count: "1,234", growth: "+6.3%" },
+              { city: "Pune", count: "1,156", growth: "+4.9%" },
+              { city: "Chennai", count: "987", growth: "+3.2%" }
+            ].map((item, index) => (
+              <div key={index} className="flex items-center justify-between py-2 hover:bg-gray-50 rounded px-2 cursor-pointer">
+                <div>
+                  <span className="text-sm font-medium text-gray-900">{item.city}</span>
+                  <span className="text-xs text-gray-500 ml-2">({item.count} properties)</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-green-600 font-medium">{item.growth}</span>
+                  <ArrowRight className="h-3 w-3 text-gray-400" />
+                </div>
               </div>
             ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* For Buyers Section */}
+      {/* Services */}
       <Card>
-        <CardContent className="p-4">
-          <h3 className="font-medium mb-3 flex items-center gap-2">
-            <Building className="h-4 w-4" />
-            BUY A HOME
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <Building className="h-5 w-5 text-orange-500" />
+            Our Services
           </h3>
-          <div className="space-y-3">
-            <div className="text-sm font-medium text-foreground mb-2">PROPERTIES IN CHENNAI SOUTH</div>
-            {[
-              "Flats in Chennai South (1,234 properties)",
-              "Builder Floors in Chennai South (456 properties)",
-              "Independent House in Chennai South (789 properties)",
-              "Plots in Chennai South (345 properties)",
-              "Serviced Apartments in Chennai South (123 properties)",
-              "Studio Apartments/1 RK Flats (234 properties)",
-              "Farm Houses in Chennai South (67 properties)"
-            ].map((item, index) => (
-              <div key={index} className="text-xs text-muted-foreground hover:text-primary cursor-pointer pl-2">
-                {item}
-              </div>
-            ))}
+          <div className="space-y-4">
+            <div className="border-l-4 border-orange-500 pl-4">
+              <h4 className="text-sm font-medium text-gray-900 mb-1">Property Buying</h4>
+              <p className="text-xs text-gray-600">Find your dream home with verified listings</p>
+            </div>
             
-            <div className="mt-4 pt-3 border-t">
-              <div className="text-sm font-medium text-foreground mb-2">POPULAR SEARCHES</div>
-              {[
-                "Property in Chennai South (2,547 properties)",
-                "Verified Property in Chennai South (1,892 properties)",
-                "New Projects in Chennai South (567 properties)"
-              ].map((item, index) => (
-                <div key={index} className="text-xs text-muted-foreground hover:text-primary cursor-pointer pl-2 mb-1">
-                  {item}
-                </div>
-              ))}
+            <div className="border-l-4 border-blue-500 pl-4">
+              <h4 className="text-sm font-medium text-gray-900 mb-1">Property Selling</h4>
+              <p className="text-xs text-gray-600">List your property and get genuine buyers</p>
+            </div>
+            
+            <div className="border-l-4 border-green-500 pl-4">
+              <h4 className="text-sm font-medium text-gray-900 mb-1">Rental Services</h4>
+              <p className="text-xs text-gray-600">Rent or lease properties hassle-free</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Insights Section */}
-      <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20">
-        <CardContent className="p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <TrendingUp className="h-5 w-5 text-blue-600" />
-            <h3 className="font-medium text-blue-900 dark:text-blue-100">INTRODUCING Insights</h3>
-            <span className="bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">NEW</span>
-          </div>
-          <div className="space-y-2">
-            {[
-              "Understand localities",
-              "Read Resident Reviews", 
-              "Check Price Trends",
-              "Tools, Utilities & more"
-            ].map((feature, index) => (
-              <div key={index} className="text-sm text-blue-700 dark:text-blue-200 hover:text-blue-900 cursor-pointer">
-                • {feature}
-              </div>
-            ))}
+      {/* Trust Indicators */}
+      <Card className="bg-gradient-to-br from-green-50 to-emerald-50">
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <Shield className="h-5 w-5 text-green-600" />
+            Why Trust 99acres?
+          </h3>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <Award className="h-4 w-4 text-green-600" />
+              <span className="text-sm text-gray-700">15+ Years of Excellence</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Star className="h-4 w-4 text-green-600" />
+              <span className="text-sm text-gray-700">4.5★ Customer Rating</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Shield className="h-4 w-4 text-green-600" />
+              <span className="text-sm text-gray-700">Verified Properties</span>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Contact Section */}
-      <Card className="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20">
-        <CardContent className="p-4">
-          <h3 className="font-medium mb-2 text-green-900 dark:text-green-100">Contact Us</h3>
-          <div className="space-y-1 text-sm text-green-700 dark:text-green-200">
-            <div>Email: services@99acres.com</div>
-            <div>Call: 1800 41 99099 (IND Toll-Free)</div>
-            <div className="text-xs">(9AM-11PM IST)</div>
+      {/* Contact */}
+      <Card className="bg-gradient-to-br from-blue-50 to-indigo-50">
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-gray-900 mb-4">Need Help?</h3>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 text-sm">
+              <Phone className="h-4 w-4 text-blue-600" />
+              <div>
+                <div className="font-medium text-gray-900">1800 41 99099</div>
+                <div className="text-xs text-gray-600">Toll-free (9AM-11PM IST)</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Mail className="h-4 w-4 text-blue-600" />
+              <div>
+                <div className="font-medium text-gray-900">services@99acres.com</div>
+                <div className="text-xs text-gray-600">Email support</div>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>

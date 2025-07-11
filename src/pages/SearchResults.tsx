@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -6,175 +6,219 @@ import PropertyCard from "@/components/PropertyCard";
 import SearchFilters from "@/components/SearchFilters";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, SlidersHorizontal } from "lucide-react";
-
+import { MapPin, SlidersHorizontal, Grid, List, Filter, Map, Bookmark, Share2 } from "lucide-react";
 import { combinedProperties } from "@/data/properties";
-
-// Use comprehensive property data
-const searchProperties = [
-  {
-    id: "1",
-    title: "Dhariwal Magathane Press Enclave CHSL",
-    location: "1, 2, 3 BHK Apartment in Magathane, Borivali East",
-    price: "₹1.1 - 2.86 Cr",
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop",
-    beds: 3,
-    baths: 2,
-    sqft: 850,
-    type: "Apartment",
-    status: "Ready to Move" as const,
-    possession: "Possession from Mar 2027",
-    isRERA: true,
-    verified: true,
-  },
-  {
-    id: "2",
-    title: "Apex Green Wood",
-    location: "1, 2 BHK Apartment in Magathane, Borivali East",
-    price: "₹91.73 - 92.95 L",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop",
-    beds: 2,
-    baths: 2,
-    sqft: 650,
-    type: "Apartment",
-    status: "Under Construction" as const,
-    possession: "Possession from Jun 2026",
-    isRERA: true,
-  },
-  // ... add more properties as needed
-];
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
-  const [filteredProperties, setFilteredProperties] = useState(combinedProperties);
   const [showFilters, setShowFilters] = useState(false);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("relevance");
+  const [filters, setFilters] = useState({
+    priceRange: [0, 10000000],
+    propertyType: 'all',
+    bedrooms: 'all',
+    bathrooms: 'all',
+    status: 'all',
+    amenities: [] as string[],
+    area: [0, 5000],
+    isRERA: false,
+    verified: false
+  });
   
   const searchQuery = searchParams.get('q') || '';
   const searchLocation = searchParams.get('location') || '';
+  const searchCategory = searchParams.get('category') || '';
 
-  useEffect(() => {
+  const filteredProperties = useMemo(() => {
     // Get posted properties from localStorage
     const postedProperties = JSON.parse(localStorage.getItem('postedProperties') || '[]');
-    const allProps = [...combinedProperties, ...postedProperties];
+    let allProps = [...combinedProperties, ...postedProperties];
     
-    // Filter properties based on search criteria
-    let filtered = allProps;
-    
+    // Apply search filters
     if (searchQuery) {
-      filtered = filtered.filter(property => 
+      allProps = allProps.filter(property => 
         property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.type.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
     
-    if (searchLocation) {
-      filtered = filtered.filter(property => 
+    if (searchLocation && searchLocation !== 'Near Me') {
+      allProps = allProps.filter(property => 
         property.location.toLowerCase().includes(searchLocation.toLowerCase())
       );
     }
-    
-    setFilteredProperties(filtered);
-  }, [searchQuery, searchLocation]);
 
-  const handleFilterChange = (filters: any) => {
-    let filtered = combinedProperties;
-    
-    // Apply filters
-    if (filters.priceRange) {
-      // Implement price filtering logic
+    if (searchCategory && searchCategory !== 'all') {
+      if (searchCategory.includes('rent')) {
+        // Filter for rental properties (this would need to be implemented in data)
+        allProps = allProps.filter(property => property.type.toLowerCase().includes('rent'));
+      } else if (searchCategory === 'new-launch') {
+        allProps = allProps.filter(property => property.status === 'New Launch');
+      } else if (searchCategory === 'ready-to-move') {
+        allProps = allProps.filter(property => property.status === 'Ready to Move');
+      }
     }
     
+    // Apply additional filters
     if (filters.propertyType && filters.propertyType !== 'all') {
-      filtered = filtered.filter(property => property.type === filters.propertyType);
+      allProps = allProps.filter(property => property.type === filters.propertyType);
     }
     
     if (filters.bedrooms && filters.bedrooms !== 'all') {
-      filtered = filtered.filter(property => property.beds === parseInt(filters.bedrooms));
+      allProps = allProps.filter(property => property.beds === parseInt(filters.bedrooms));
     }
     
     if (filters.status && filters.status !== 'all') {
-      filtered = filtered.filter(property => property.status === filters.status);
+      allProps = allProps.filter(property => property.status === filters.status);
+    }
+
+    if (filters.isRERA) {
+      allProps = allProps.filter(property => property.isRERA);
+    }
+
+    if (filters.verified) {
+      allProps = allProps.filter(property => property.verified);
     }
     
-    setFilteredProperties(filtered);
-  };
-
-  const handleSort = (value: string) => {
-    setSortBy(value);
-    let sorted = [...filteredProperties];
-    
-    switch (value) {
+    // Apply sorting
+    switch (sortBy) {
       case 'price-low':
-        sorted.sort((a, b) => {
+        allProps.sort((a, b) => {
           const priceA = parseFloat(a.price.replace(/[₹,\-\s]/g, '').split('-')[0]) || 0;
           const priceB = parseFloat(b.price.replace(/[₹,\-\s]/g, '').split('-')[0]) || 0;
           return priceA - priceB;
         });
         break;
       case 'price-high':
-        sorted.sort((a, b) => {
+        allProps.sort((a, b) => {
           const priceA = parseFloat(a.price.replace(/[₹,\-\s]/g, '').split('-')[0]) || 0;
           const priceB = parseFloat(b.price.replace(/[₹,\-\s]/g, '').split('-')[0]) || 0;
           return priceB - priceA;
         });
         break;
       case 'newest':
-        // Sort by newest first (assuming id as timestamp for demo)
-        sorted.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+        allProps.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+        break;
+      case 'area-high':
+        allProps.sort((a, b) => (b.sqft || 0) - (a.sqft || 0));
         break;
       default:
         // Keep original order for relevance
         break;
     }
     
-    setFilteredProperties(sorted);
+    return allProps;
+  }, [searchQuery, searchLocation, searchCategory, filters, sortBy]);
+
+  const handleFilterChange = (newFilters: any) => {
+    setFilters(newFilters);
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Search Results Header */}
+        {/* Breadcrumb & Search Info */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-            <MapPin className="h-4 w-4" />
-            <span>
-              {searchLocation || 'All Locations'} 
-              {searchQuery && ` • "${searchQuery}"`}
-            </span>
+          <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+            <span>Home</span>
+            <span>›</span>
+            <span>Search Results</span>
+            {searchLocation && (
+              <>
+                <span>›</span>
+                <span>{searchLocation}</span>
+              </>
+            )}
           </div>
-          <h1 className="text-2xl font-bold text-foreground">
-            {filteredProperties.length} Properties Found
-          </h1>
+          
+          <div className="flex items-center gap-3 mb-4">
+            <MapPin className="h-5 w-5 text-orange-500" />
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">
+                {filteredProperties.length} Properties Found
+              </h1>
+              <p className="text-gray-600">
+                {searchLocation || 'All Locations'} 
+                {searchQuery && ` • "${searchQuery}"`}
+                {searchCategory && ` • ${searchCategory.replace('-', ' ')}`}
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-          <Button
-            variant="outline"
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            Filters
-          </Button>
-          
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Sort by:</span>
-            <Select value={sortBy} onValueChange={handleSort}>
-              <SelectTrigger className="w-48">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="relevance">Relevance</SelectItem>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
-                <SelectItem value="newest">Newest First</SelectItem>
-              </SelectContent>
-            </Select>
+        {/* Action Bar */}
+        <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                Filters
+                {Object.values(filters).some(v => v !== 'all' && v !== false && (Array.isArray(v) ? v.length > 0 : true)) && (
+                  <span className="bg-orange-500 text-white text-xs rounded-full px-2 py-0.5 ml-1">
+                    Active
+                  </span>
+                )}
+              </Button>
+              
+              <div className="flex items-center border rounded-lg p-1">
+                <Button
+                  variant={viewMode === "grid" ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setViewMode("grid")}
+                  className="h-8 w-8 p-0"
+                >
+                  <Grid className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === "list" ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setViewMode("list")}
+                  className="h-8 w-8 p-0"
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <Map className="h-4 w-4" />
+                Map View
+              </Button>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm">
+                  <Bookmark className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <Share2 className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">Sort by:</span>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-48">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="relevance">Relevance</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="newest">Newest First</SelectItem>
+                    <SelectItem value="area-high">Area: Largest First</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -182,26 +226,100 @@ const SearchResults = () => {
           {/* Filters Sidebar */}
           {showFilters && (
             <div className="w-80 flex-shrink-0">
-              <SearchFilters onFilterChange={handleFilterChange} />
+              <div className="sticky top-24">
+                <SearchFilters onFilterChange={handleFilterChange} />
+              </div>
             </div>
           )}
           
-          {/* Properties Grid */}
+          {/* Properties Grid/List */}
           <div className="flex-1">
             {filteredProperties.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProperties.map((property) => (
-                  <PropertyCard 
-                    key={property.id} 
-                    property={property}
-                    className="hover:shadow-lg transition-shadow duration-300"
-                  />
-                ))}
-              </div>
+              <>
+                {/* Results Summary */}
+                <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold text-blue-900">
+                        {filteredProperties.length} properties match your search
+                      </h3>
+                      <p className="text-sm text-blue-700">
+                        Showing results for {searchLocation || 'all locations'}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm text-blue-700">Average Price</div>
+                      <div className="font-semibold text-blue-900">₹2.5 Cr</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={
+                  viewMode === "grid" 
+                    ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    : "space-y-4"
+                }>
+                  {filteredProperties.map((property) => (
+                    <PropertyCard 
+                      key={property.id} 
+                      property={property}
+                      className={cn(
+                        "hover:shadow-xl transition-all duration-300",
+                        viewMode === "list" && "flex flex-row max-w-none"
+                      )}
+                    />
+                  ))}
+                </div>
+
+                {/* Load More */}
+                {filteredProperties.length > 12 && (
+                  <div className="text-center mt-12">
+                    <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3">
+                      Load More Properties
+                    </Button>
+                  </div>
+                )}
+              </>
             ) : (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground text-lg">No properties found matching your criteria.</p>
-                <p className="text-sm text-muted-foreground mt-2">Try adjusting your search filters.</p>
+              <div className="text-center py-16">
+                <div className="max-w-md mx-auto">
+                  <div className="mb-6">
+                    <div className="h-24 w-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <MapPin className="h-12 w-12 text-gray-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      No properties found
+                    </h3>
+                    <p className="text-gray-600 mb-6">
+                      We couldn't find any properties matching your search criteria. 
+                      Try adjusting your filters or search terms.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <Button 
+                      onClick={() => setFilters({
+                        priceRange: [0, 10000000],
+                        propertyType: 'all',
+                        bedrooms: 'all',
+                        bathrooms: 'all',
+                        status: 'all',
+                        amenities: [],
+                        area: [0, 5000],
+                        isRERA: false,
+                        verified: false
+                      })}
+                      className="bg-orange-500 hover:bg-orange-600 text-white"
+                    >
+                      Clear All Filters
+                    </Button>
+                    <div>
+                      <Button variant="outline">
+                        Browse All Properties
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
