@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, SlidersHorizontal, Grid, List, Filter, Map, Bookmark, Share2 } from "lucide-react";
 import { combinedProperties } from "@/data/properties";
+import { cn } from "@/lib/utils";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();

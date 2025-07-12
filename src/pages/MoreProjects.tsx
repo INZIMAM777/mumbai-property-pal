@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PropertyCard from "@/components/PropertyCard";
 import SearchFilters from "@/components/SearchFilters";
-import { combinedProperties } from "@/data/properties";
+import { additionalProperties } from "@/data/allCityProperties";
 import { Button } from "@/components/ui/button";
 import { Grid, List, SlidersHorizontal } from "lucide-react";
 
@@ -21,7 +21,7 @@ const MoreProjects = () => {
   const [sortBy, setSortBy] = useState("latest");
 
   const filteredProperties = useMemo(() => {
-    let filtered = [...combinedProperties];
+    let filtered = [...additionalProperties];
 
     // Apply filters
     if (filters.city) {
@@ -77,7 +77,7 @@ const MoreProjects = () => {
         <div className="text-sm text-muted-foreground mb-4">
           <Link to="/" className="hover:text-foreground">Home</Link>
           {" > "}
-          <span>All Projects ({combinedProperties.length} properties)</span>
+          <span>All Projects ({additionalProperties.length} properties)</span>
         </div>
 
         {/* Header Section */}
@@ -158,13 +158,25 @@ const MoreProjects = () => {
                   ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
                   : "space-y-4"
               }>
-                {filteredProperties.map((property) => (
-                  <PropertyCard
-                    key={property.id}
-                    {...property}
-                    className={viewMode === "list" ? "flex-row" : ""}
-                  />
-                ))}
+                 {filteredProperties.map((property) => (
+                   <PropertyCard
+                     key={property.id}
+                     property={{
+                       id: property.id,
+                       title: property.title,
+                       location: property.location,
+                       price: property.price,
+                       image: property.imageUrl,
+                       beds: property.bedrooms,
+                       baths: property.bathrooms,
+                       sqft: parseInt(property.area),
+                       type: property.propertyType,
+                       status: property.status as "Ready to Move" | "Under Construction" | "New Launch",
+                       verified: true
+                     }}
+                     className={viewMode === "list" ? "flex-row" : ""}
+                   />
+                 ))}
               </div>
             )}
           </div>

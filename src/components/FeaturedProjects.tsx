@@ -4,6 +4,7 @@ import { combinedProperties } from "@/data/properties";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 // Use imported property data
 const recommendedProjects = combinedProperties.slice(0, 12);
@@ -155,16 +156,33 @@ const FeaturedProjects = () => {
             ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8"
             : "space-y-4 mb-8"
         }>
-          {getSectionData().map((property) => (
-            <PropertyCard 
-              key={property.id} 
-              property={property}
-              className={cn(
-                "hover:shadow-xl transition-all duration-300",
-                viewMode === "list" && "flex flex-row max-w-none"
-              )}
-            />
-          ))}
+        {getSectionData().map((property) => {
+            // Map property data to the expected interface
+            const mappedProperty = {
+              id: property.id,
+              title: property.title,
+              location: property.location,
+              price: property.price,
+              image: (property as any).image || "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=300&h=200&fit=crop",
+              beds: (property as any).beds || 2,
+              baths: (property as any).baths || 2,
+              sqft: (property as any).sqft || 800,
+              type: (property as any).type || "Apartment",
+              status: property.status as "Ready to Move" | "Under Construction" | "New Launch",
+              verified: (property as any).verified !== undefined ? (property as any).verified : true
+            };
+            
+            return (
+              <PropertyCard 
+                key={property.id} 
+                property={mappedProperty}
+                className={cn(
+                  "hover:shadow-xl transition-all duration-300",
+                  viewMode === "list" && "flex flex-row max-w-none"
+                )}
+              />
+            );
+          })}
         </div>
 
         <div className="text-center">
