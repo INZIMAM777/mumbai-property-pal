@@ -65,7 +65,7 @@ const PropertyCard = ({ property, className }: PropertyCardProps) => {
       className
     )}>
       {/* Image Section */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-[4/3] sm:aspect-[5/3] lg:aspect-[4/3] overflow-hidden">
         <img
           src={imageError ? defaultImage : property.image}
           alt={property.title}
@@ -132,24 +132,24 @@ const PropertyCard = ({ property, className }: PropertyCardProps) => {
       </div>
 
       {/* Content Section */}
-      <div className="p-5">
+      <div className="p-4 lg:p-5">
         {/* Price */}
         <div className="mb-3">
-          <span className="text-2xl font-bold text-gray-900">{property.price}</span>
+          <span className="text-lg lg:text-2xl font-bold text-gray-900">{property.price}</span>
           {property.type === "Apartment" && (
-            <span className="text-sm text-gray-500 ml-2">onwards</span>
+            <span className="text-xs lg:text-sm text-gray-500 ml-2">onwards</span>
           )}
         </div>
 
         {/* Title */}
-        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-lg leading-tight">
+        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-base lg:text-lg leading-tight">
           {property.title}
         </h3>
 
         {/* Location */}
         <div className="flex items-start gap-1 mb-4">
-          <MapPin className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
-          <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
+          <MapPin className="h-3 w-3 lg:h-4 lg:w-4 text-gray-400 mt-0.5 flex-shrink-0" />
+          <p className="text-xs lg:text-sm text-gray-600 line-clamp-2 leading-relaxed">
             {property.location}
           </p>
         </div>
@@ -190,17 +190,19 @@ const PropertyCard = ({ property, className }: PropertyCardProps) => {
         <div className="flex gap-2 pt-4 border-t border-gray-100">
           <Button 
             variant="outline" 
-            className="flex-1 text-orange-500 border-orange-200 hover:bg-orange-50"
+            className="flex-1 text-orange-500 border-orange-200 hover:bg-orange-50 text-xs lg:text-sm"
             onClick={(e) => e.stopPropagation()}
           >
-            <Phone className="h-4 w-4 mr-2" />
-            Contact
+            <Phone className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
+            <span className="hidden sm:inline">Contact</span>
+            <span className="sm:hidden">Call</span>
           </Button>
           <Button 
-            className="flex-1 bg-orange-500 hover:bg-orange-600 text-white"
+            className="flex-1 bg-orange-500 hover:bg-orange-600 text-white text-xs lg:text-sm"
             onClick={(e) => e.stopPropagation()}
           >
-            View Details
+            <span className="hidden sm:inline">View Details</span>
+            <span className="sm:hidden">View</span>
           </Button>
         </div>
 

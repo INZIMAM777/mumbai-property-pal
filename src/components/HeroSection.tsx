@@ -132,15 +132,15 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-br from-orange-50 via-white to-blue-50 min-h-[600px] relative">
+    <section className="bg-gradient-to-br from-orange-50 via-white to-blue-50 min-h-[500px] lg:min-h-[600px] relative">
       {/* Premium Banner */}
-      <div className="relative h-24 bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+      <div className="relative h-16 lg:h-24 bg-gradient-to-r from-slate-800 to-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
           <div className="flex-1">
-            <div className="text-lg font-bold mb-1">
+            <div className="text-sm lg:text-lg font-bold mb-1">
               INDIA'S NO. 1 PROPERTY PORTAL
             </div>
-            <div className="text-sm text-slate-300">
+            <div className="text-xs lg:text-sm text-slate-300">
               Find Properties for Sale and Rent in India
             </div>
           </div>
@@ -148,31 +148,31 @@ const HeroSection = () => {
             <img 
               src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&h=80&fit=crop" 
               alt="Premium Properties" 
-              className="rounded-lg h-16"
+              className="rounded-lg h-12 lg:h-16"
             />
           </div>
           <div className="text-right">
-            <div className="text-lg font-bold text-orange-400 mb-1">99acres</div>
+            <div className="text-sm lg:text-lg font-bold text-orange-400 mb-1">99acres</div>
             <div className="text-xs text-slate-300">TRUSTED BY MILLIONS</div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-6 lg:py-12">
         {/* Breadcrumb */}
-        <div className="mb-6">
+        <div className="mb-4 lg:mb-6">
           <div className="flex items-center gap-2 text-sm text-slate-600 mb-3">
             <MapPin className="h-4 w-4 text-orange-500" />
             <span className="text-orange-500 font-medium">Buy in {selectedCity}</span>
-            <span>•</span>
-            <span>Explore real estate opportunities</span>
+            <span className="hidden md:inline">•</span>
+            <span className="hidden md:inline">Explore real estate opportunities</span>
           </div>
         </div>
 
         {/* Main Search Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-5xl mx-auto border border-slate-200">
+        <div className="bg-white rounded-xl lg:rounded-2xl shadow-xl p-4 lg:p-8 max-w-5xl mx-auto border border-slate-200">
           {/* Tabs */}
-          <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200">
+          <div className="flex flex-wrap gap-1 lg:gap-2 mb-6 lg:mb-8 border-b border-slate-200 overflow-x-auto">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.name;
               const Icon = tab.icon;
@@ -180,16 +180,17 @@ const HeroSection = () => {
                 <button
                   key={tab.name}
                   onClick={() => setActiveTab(tab.name)}
-                  className={`flex items-center gap-2 px-6 py-4 text-sm font-medium transition-all relative ${
+                  className={`flex items-center gap-1 lg:gap-2 px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-sm font-medium transition-all relative whitespace-nowrap ${
                     isActive
                       ? "text-orange-500 border-b-2 border-orange-500 bg-orange-50"
                       : "text-slate-600 hover:text-slate-800 hover:bg-slate-50"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
-                  {tab.name}
+                  <span className="hidden sm:inline">{tab.name}</span>
+                  <span className="sm:hidden">{tab.name.split(' ')[0]}</span>
                   {tab.isNew && (
-                    <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">
+                    <span className="bg-red-500 text-white text-xs px-1.5 lg:px-2 py-0.5 rounded-full font-bold">
                       NEW
                     </span>
                   )}
@@ -199,12 +200,12 @@ const HeroSection = () => {
           </div>
 
           {/* Search Form */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-end">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
             {/* City Selection */}
             <div className="lg:col-span-2">
               <label className="block text-sm font-medium text-slate-700 mb-2">City</label>
               <Select value={selectedCity} onValueChange={setSelectedCity}>
-                <SelectTrigger className="h-14 border-2 border-slate-200 focus:border-orange-500">
+                <SelectTrigger className="h-12 lg:h-14 border-2 border-slate-200 focus:border-orange-500">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -219,7 +220,7 @@ const HeroSection = () => {
             <div className="lg:col-span-2">
               <label className="block text-sm font-medium text-slate-700 mb-2">Property Type</label>
               <Select defaultValue="all-residential">
-                <SelectTrigger className="h-14 border-2 border-slate-200 focus:border-orange-500">
+                <SelectTrigger className="h-12 lg:h-14 border-2 border-slate-200 focus:border-orange-500">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -233,45 +234,45 @@ const HeroSection = () => {
             </div>
 
             {/* Search Input */}
-            <div className="lg:col-span-6">
+            <div className="md:col-span-2 lg:col-span-6">
               <label className="block text-sm font-medium text-slate-700 mb-2">Search Properties</label>
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
+                <Search className="absolute left-3 lg:left-4 top-1/2 transform -translate-y-1/2 h-4 lg:h-5 w-4 lg:w-5 text-slate-400" />
                 <Input
-                  placeholder="Search '3 BHK for sale in Mumbai' or 'Locality, Landmark, Project'"
+                  placeholder="Search '3 BHK for sale in Mumbai'"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-24 h-14 text-base border-2 border-slate-200 focus:border-orange-500"
+                  className="pl-10 lg:pl-12 pr-16 lg:pr-24 h-12 lg:h-14 text-sm lg:text-base border-2 border-slate-200 focus:border-orange-500"
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                 />
-                <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-1">
+                <div className="absolute right-1 lg:right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-1">
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="h-10 w-10 hover:bg-orange-100"
+                    className="h-8 lg:h-10 w-8 lg:w-10 hover:bg-orange-100"
                     onClick={handleLocationSearch}
                     title="Search by current location"
                   >
-                    <LocateFixed className="h-4 w-4 text-orange-500" />
+                    <LocateFixed className="h-3 lg:h-4 w-3 lg:w-4 text-orange-500" />
                   </Button>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className={`h-10 w-10 hover:bg-orange-100 ${isListening ? 'bg-red-100 text-red-600' : ''}`}
+                    className={`h-8 lg:h-10 w-8 lg:w-10 hover:bg-orange-100 ${isListening ? 'bg-red-100 text-red-600' : ''}`}
                     onClick={handleVoiceSearch}
                     title="Voice search"
                   >
-                    <Mic className={`h-4 w-4 ${isListening ? 'text-red-600' : 'text-orange-500'}`} />
+                    <Mic className={`h-3 lg:h-4 w-3 lg:w-4 ${isListening ? 'text-red-600' : 'text-orange-500'}`} />
                   </Button>
                 </div>
               </div>
             </div>
 
             {/* Search Button */}
-            <div className="lg:col-span-2">
+            <div className="md:col-span-2 lg:col-span-2">
               <Button 
                 onClick={handleSearch}
-                className="w-full h-14 bg-orange-500 hover:bg-orange-600 text-white text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
+                className="w-full h-12 lg:h-14 bg-orange-500 hover:bg-orange-600 text-white text-sm lg:text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
               >
                 Search
               </Button>
@@ -279,8 +280,8 @@ const HeroSection = () => {
           </div>
 
           {/* Trending Searches */}
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <div className="flex flex-wrap items-center gap-3">
+          <div className="mt-6 lg:mt-8 pt-4 lg:pt-6 border-t border-slate-200">
+            <div className="flex flex-wrap items-center gap-2 lg:gap-3">
               <span className="text-sm font-medium text-slate-600">Trending:</span>
               {trendingSearches.map((search, index) => (
                 <button
@@ -289,7 +290,7 @@ const HeroSection = () => {
                     setSearchQuery(search);
                     handleSearch();
                   }}
-                  className="text-sm text-orange-500 hover:text-orange-600 hover:underline"
+                  className="text-xs lg:text-sm text-orange-500 hover:text-orange-600 hover:underline"
                 >
                   {search}
                 </button>
@@ -299,22 +300,22 @@ const HeroSection = () => {
         </div>
 
         {/* Quick Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="mt-8 lg:mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 max-w-4xl mx-auto">
           <div className="text-center">
-            <div className="text-3xl font-bold text-orange-500">2.5M+</div>
-            <div className="text-sm text-slate-600">Properties Listed</div>
+            <div className="text-2xl lg:text-3xl font-bold text-orange-500">2.5M+</div>
+            <div className="text-xs lg:text-sm text-slate-600">Properties Listed</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-orange-500">50K+</div>
-            <div className="text-sm text-slate-600">New Listings Monthly</div>
+            <div className="text-2xl lg:text-3xl font-bold text-orange-500">50K+</div>
+            <div className="text-xs lg:text-sm text-slate-600">New Listings Monthly</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-orange-500">1M+</div>
-            <div className="text-sm text-slate-600">Happy Customers</div>
+            <div className="text-2xl lg:text-3xl font-bold text-orange-500">1M+</div>
+            <div className="text-xs lg:text-sm text-slate-600">Happy Customers</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-orange-500">15+</div>
-            <div className="text-sm text-slate-600">Years of Trust</div>
+            <div className="text-2xl lg:text-3xl font-bold text-orange-500">15+</div>
+            <div className="text-xs lg:text-sm text-slate-600">Years of Trust</div>
           </div>
         </div>
       </div>

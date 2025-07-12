@@ -72,7 +72,7 @@ const MoreProjects = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-4 lg:py-6">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-4">
           <Link to="/" className="hover:text-foreground">Home</Link>
@@ -83,15 +83,15 @@ const MoreProjects = () => {
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row gap-4 mb-6">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold mb-2">All Projects & Properties</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-xl lg:text-2xl font-bold mb-2">All Projects & Properties</h1>
+            <p className="text-muted-foreground text-sm lg:text-base">
               Discover {filteredProperties.length} properties across major cities in India
             </p>
           </div>
           
           {/* View Controls */}
           <div className="flex items-center gap-4">
-            <div className="flex items-center border rounded-lg p-1">
+            <div className="hidden lg:flex items-center border rounded-lg p-1">
               <Button
                 variant={viewMode === "grid" ? "default" : "ghost"}
                 size="sm"
@@ -119,7 +119,7 @@ const MoreProjects = () => {
           </div>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Filters Sidebar */}
           <div className={`${showFilters ? 'block' : 'hidden'} lg:block w-full lg:w-80 space-y-4`}>
             <div className="bg-card rounded-lg p-4 border">
@@ -132,7 +132,7 @@ const MoreProjects = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md text-sm"
                 >
                   <option value="latest">Latest</option>
                   <option value="price-low">Price: Low to High</option>
@@ -155,7 +155,7 @@ const MoreProjects = () => {
             ) : (
               <div className={
                 viewMode === "grid" 
-                  ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6"
                   : "space-y-4"
               }>
                  {filteredProperties.map((property) => (

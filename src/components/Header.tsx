@@ -21,23 +21,24 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b shadow-sm">
-      {/* Top Bar */}
-      <div className="bg-slate-50 border-b">
+      {/* Top Bar - Hide on mobile */}
+      <div className="bg-slate-50 border-b hidden md:block">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex h-8 items-center justify-between text-xs">
             <div className="flex items-center space-x-4 text-slate-600">
               <span className="flex items-center gap-1">
                 <Phone className="h-3 w-3" />
-                1800 41 99099
+                <span className="hidden lg:inline">1800 41 99099</span>
+                <span className="lg:hidden">Call Us</span>
               </span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 hidden lg:flex">
                 <Mail className="h-3 w-3" />
                 services@99acres.com
               </span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 lg:space-x-4">
               <Link to="#" className="text-slate-600 hover:text-primary">Help</Link>
-              <Link to="#" className="text-slate-600 hover:text-primary">Sitemap</Link>
+              <Link to="#" className="text-slate-600 hover:text-primary hidden lg:inline">Sitemap</Link>
               <div className="flex items-center gap-1 text-slate-600">
                 <Globe className="h-3 w-3" />
                 <span>EN</span>
@@ -50,16 +51,16 @@ const Header = () => {
 
       {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-14 lg:h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <div className="text-2xl font-bold">
+              <div className="text-xl lg:text-2xl font-bold">
                 <span className="text-orange-500">99</span>
                 <span className="text-slate-700">acres</span>
               </div>
             </Link>
-            <div className="ml-6 hidden md:flex items-center gap-1 text-sm">
+            <div className="ml-4 lg:ml-6 hidden md:flex items-center gap-1 text-sm">
               <span className="text-slate-600">Buy in</span>
               <span className="text-orange-500 font-medium">Western Mumbai</span>
               <ChevronDown className="h-4 w-4 text-orange-500" />
@@ -154,11 +155,12 @@ const Header = () => {
           </TooltipProvider>
 
           {/* Right Section */}
-          <div className="flex items-center space-x-3">
-            <Link to="/post-property">
-              <Button className="hidden sm:inline-flex bg-orange-500 hover:bg-orange-600 text-white text-sm px-4">
-                Post property
-                <span className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded ml-2 font-medium">
+          <div className="flex items-center space-x-2 lg:space-x-3">
+            <Link to="/post-property" className="hidden md:block">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm px-3 lg:px-4 py-2">
+                <span className="hidden lg:inline">Post property</span>
+                <span className="lg:hidden">Post</span>
+                <span className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded ml-1 lg:ml-2 font-medium">
                   FREE
                 </span>
               </Button>
@@ -195,29 +197,40 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t">
+          <div className="lg:hidden py-4 border-t bg-white">
             <nav className="flex flex-col space-y-3">
-              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-2 py-1">
-                Buy
+              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-4 py-2 border-b">
+                Buy Properties
               </a>
-              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-2 py-1">
-                Rent
+              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-4 py-2 border-b">
+                Rent Properties
               </a>
-              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-2 py-1">
+              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-4 py-2 border-b">
                 New Projects
               </a>
-              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-2 py-1">
+              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-4 py-2 border-b">
                 Sell/Rent
               </a>
-              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-2 py-1">
+              <a href="#" className="text-sm font-medium text-slate-700 hover:text-orange-500 transition-colors px-4 py-2 border-b">
                 Insights
               </a>
-              <div className="pt-3 border-t">
+              <div className="px-4 pt-3">
                 <Link to="/post-property" className="block">
                   <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">
                     Post property FREE
                   </Button>
                 </Link>
+              </div>
+              {/* Mobile Contact */}
+              <div className="px-4 pt-2 text-sm text-slate-600 border-t">
+                <div className="flex items-center gap-2 mb-2">
+                  <Phone className="h-4 w-4" />
+                  <span>1800 41 99099</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  <span>services@99acres.com</span>
+                </div>
               </div>
             </nav>
           </div>
